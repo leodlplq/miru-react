@@ -10,4 +10,5 @@ const userRoutes = require("./routes/users.routes");
 const { API_PORT } = process.env;
 
 app.use("/user", userRoutes);
+
 app.listen(API_PORT, () => console.log("App listening on port:", API_PORT));
