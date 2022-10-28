@@ -1,0 +1,39 @@
+version: '3'
+
+env:
+  API_PORT: 4000
+  API_ROOT: localhost
+  DB_HOST: localhost
+  DB_NAME: miru
+  DB_USER: leo
+  DB_PASSWORD: leo
+
+tasks:
+  default:
+    desc: Help command
+    cmds:
+      - task --list-all
+
+  dev:
+    desc: Start the application locally
+    env:
+      API_PORT: 4000
+      API_ROOT: localhost
+      DB_HOST: localhost
+      DB_NAME: miru
+      DB_USER: leo
+      DB_PASSWORD: leo
+    cmds:
+      - npm run dev
+  
+  dbuild:
+    desc: Build the docker image locally
+    cmds:
+      - docker build -f Dockerfile . -t miru/api:local
+
+  dstart:
+    desc: Start the docker image locally
+    env:
+      DB_HOST: host.docker.internal
+    cmds:
+      - docker run -p 4000:4000 -e API_PORT -e API_ROOT -e DB_HOST -e DB_NAME -e DB_USER -e DB_PASSWORD miru/api:local 

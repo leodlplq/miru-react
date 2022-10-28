@@ -1,20 +1,6 @@
 version: "3.7"
 services:
-  miru:
-    environment:
-      - NODE_ENV=development
-    build: 
-      context: .
-      dockerfile: Dockerfile.dev
-    volumes:
-      - ./:/usr/app
-    container_name: miru-docker
-    expose: 
-      - "4000"
-    ports:
-      - "4000:4000"
-    command: npm run dev
-  maria-db:
+  db:
     image: "mariadb:latest"
     ports:
       - 3306:3306
@@ -24,7 +10,8 @@ services:
       MARIADB_PASSWORD: leo
       MARIADB_ROOT_PASSWORD: leo
     volumes:
-      - mariadbdata:/var/lib/mysql
+      - dbdata:/var/lib/mysql
+
   adminer:
     image: "adminer"
     ports:
@@ -32,6 +19,4 @@ services:
 
 volumes:
   dbdata:
-    driver: local
-  mariadbdata:
     driver: local
